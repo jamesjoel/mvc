@@ -12,5 +12,6 @@ router.use('/', require("./home"));
 router.use('/login', require("./login"));
 router.use('/signup', require("./signup"));
 router.use('/user', require("./user"));
+router.use('/student', require("./student"));
 
 module.exports=router;
