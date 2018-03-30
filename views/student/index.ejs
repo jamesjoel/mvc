@@ -1,7 +1,114 @@
+<script type="text/javascript" src="/js/angular.min.js"></script>
+<script type="text/javascript" src="/js/student.js"></script>
+<div ng-app="studentApp" ng-controller="studentCtrl" ng-init="getAll()">
 <div class="container">
-	<h1>Studnet Page</h1>
-	<form action="" method="post">
-		Insert Age <input type="Text" class="form-controller" name="age">
-		<input type="submit" value="Go" />
-	</form>
+	<div class="jumbotron">
+		<!-- <pre ng-bind="allData | json"></pre> -->
+		<h1>The Stepping Ston</h1>
+		<button class="btn btn-info" ng-click="newStudent={}" data-toggle="modal" data-target="#addModal">Add New Student</button>
+	</div>
+	<table class="table table-hover table-striped table-bordered">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Fee</th>
+			<th>Delete</th>
+		</tr>
+		<tr ng-repeat="data in allData">
+			<!-- <td>{{ $index+1 }}</td>
+			<td>{{ data.full_name }}</td>
+			<td>{{ data.age }}</td>
+			<td>{{ data.fee }}</td> -->
+			<td ng-bind="$index+1"></td>
+			<td ng-bind="data.full_name"></td>
+			<td ng-bind="data.age"></td>
+			<td ng-bind="data.fee"></td>
+			<td><button ng-click="askDelete(data)" class="btn btn-danger" data-target="#delModal" data-toggle="modal">Delete</button>
+
+		</tr>
+	</table>
+	
+</div>
+<div class="modal fade" id="addModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Add New Student</h3>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Full Name</label>
+					<input type="text" ng-model="newStudent.full_name" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Age</label>
+					<input type="text" ng-model="newStudent.age" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Fee</label>
+					<input type="text" ng-model="newStudent.fee" class="form-control">
+				</div>	
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button class="btn btn-primary" data-dismiss="modal" ng-click="add()">Add</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="errorModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Error Message</h3>
+			</div>
+			<div class="modal-body">
+				<p>{{ errorMsg }}</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="errorModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Error Message</h3>
+			</div>
+			<div class="modal-body">
+				<p>{{ errorMsg }}</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="delModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Message</h3>
+			</div>
+			<div class="modal-body">
+				<p>Are You Sure want to delete <b>{{ selectedObj.full_name }}</b> user</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button ng-click="delete()" class="btn btn-default" data-dismiss="modal">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
 </div>

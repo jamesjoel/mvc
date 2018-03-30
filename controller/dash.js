@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res){
-	res.send("<h1>Thi is Dashboard Page</h1>");
+	var pageData = { title : 'Dashboard Page', pagename : 'dash/index', msg : req.flash('msg')};
+	res.render('layout', pageData);
 });
 
 

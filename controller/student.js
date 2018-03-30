@@ -1,25 +1,50 @@
 var express = require('express');
 var router = express.Router();
 
-var student = require('../model/student');
+var Student = require('../model/student');
 
 
 router.get('/', function(req, res){
-	var pageData = { title : 'Studnet Page', pagename : 'student/index'};
+	var pageData = { title : 'Student Page', pagename : 'student/index'};
 	res.render('layout', pageData);
-	// console.log("Studnet Contrller");
-	// 	student.decAge(function(err, result){
-	// 		console.log(result);
-	// 	});
 
-	// res.send("<h1>Studnet</h1>");
 });
-
-router.post('/', function(req, res){
-	var age = req.body.age;
-	student.selectWhere(age, function(err, result){
-		console.log(result);
+router.post('/add', function(req, res){
+	// console.log("calling -----------------");
+	// console.log(req.body);
+	var data = req.body;
+	Student.insert(data, function(err, result){
+		if(err){
+			console.log('Insert err', err);
+			return;
+		}
+		res.send(result);
 	});
 });
+router.get('/getAll', function(req, res){
+	Student.selectAll(function(err, result){
+		if(err){
+			console.log('Insert err', err);
+			return;
+		}
+		res.send(result);
+	});
+});
+
+router.post('/delete', function(req, res){
+	// console.log("calling -----------------");
+	console.log(req.body);
+	var data = req.body;
+	Student.deleteWhereId(data, function(err, result){
+		if(err){
+			console.log('Insert err', err);
+			return;
+		}
+		console.log(result);
+		res.send(result);
+	});
+});
+
+
 
 module.exports=router;

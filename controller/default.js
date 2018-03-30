@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var backdoor_url = ['/dash'];
+var backdoor_url = ['/dash', '/student'];
 
 
 
@@ -20,8 +20,12 @@ router.use('/user', require("./user"));
 router.use('/student', require("./student"));
 
 
-
-
 router.use('/dash', require("./dash"));
+
+router.get('/logout', function(req, res){
+	req.session.destroy();
+	res.redirect("/login");
+});
+
 
 module.exports=router;
