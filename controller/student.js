@@ -21,6 +21,21 @@ router.post('/add', function(req, res){
 		res.send(result);
 	});
 });
+
+router.put('/add', function(req, res){
+	// console.log("calling -----------------");
+	var data = req.body;
+	Student.updateWhereId(data, function(err, result){
+		if(err){
+			console.log('Update err', err);
+			return;
+		}
+		console.log(result);
+		res.send(result);
+	});
+});
+
+
 router.get('/getAll', function(req, res){
 	Student.selectAll(function(err, result){
 		if(err){

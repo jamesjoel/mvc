@@ -5,7 +5,7 @@
 	<div class="jumbotron">
 		<!-- <pre ng-bind="allData | json"></pre> -->
 		<h1>The Stepping Ston</h1>
-		<button class="btn btn-info" ng-click="newStudent={}" data-toggle="modal" data-target="#addModal">Add New Student</button>
+		<button class="btn btn-info" ng-click="newStudent={}" data-toggle="modal" data-target="#addModal">Add Student</button>
 	</div>
 	<table class="table table-hover table-striped table-bordered">
 		<tr>
@@ -14,6 +14,7 @@
 			<th>Age</th>
 			<th>Fee</th>
 			<th>Delete</th>
+			<th>Edit</th>
 		</tr>
 		<tr ng-repeat="data in allData">
 			<!-- <td>{{ $index+1 }}</td>
@@ -24,7 +25,8 @@
 			<td ng-bind="data.full_name"></td>
 			<td ng-bind="data.age"></td>
 			<td ng-bind="data.fee"></td>
-			<td><button ng-click="askDelete(data)" class="btn btn-danger" data-target="#delModal" data-toggle="modal">Delete</button>
+			<td><button ng-click="askDelete(data)" class="btn btn-danger" data-target="#delModal" data-toggle="modal">Delete</button></td>
+			<td><button ng-click="askEdit(data)" class="btn btn-warning" data-toggle="modal" data-target="#addModal">Update</button></td>
 
 		</tr>
 	</table>
@@ -34,7 +36,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3>Add New Student</h3>
+				<h3>{{ newStudent._id ? 'Update' : 'Add' }} Student</h3>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
@@ -52,7 +54,7 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button class="btn btn-primary" data-dismiss="modal" ng-click="add()">Add</button>
+				<button class="btn btn-primary" data-dismiss="modal" ng-click="add()">{{ newStudent._id ? 'Update' : 'Add' }}</button>
 			</div>
 		</div>
 	</div>

@@ -17,21 +17,52 @@ app.controller('studentCtrl', function($scope, $http){
 
 
 	$scope.add = function(){
-		console.log($scope.newStudent);
+		//console.log($scope.newStudent);
+		if($scope.newStudent._id)
+		{
+			var method ='put';
+		}
+		else
+		{
+
+			var method ='post';
+		}
 		$http({
 			url : '/student/add',
-			method : 'post',
+			method : method,
 			data : $scope.newStudent
 		}).then(function(res){
 			// console.log(res.data);
-			if(res.data.ops.length>0)
+			if($scope.newStudent._id)
 			{
-				$scope.allData.push(res.data.ops[0]);
+				if(res.data.ok == 1)
+				{
+					for(var i=0; i<$scope.allData.length; i++)
+					{
+						if($scope.allData[i]._id == $scope.newStudent._id)
+						{
+							$scope.allData[i]=$scope.newStudent;
+						}
+					}
+				}
+				else
+				{
+					$scope.errorMsg="Somthing Error while Data Updating !";
+					$("#errorModal").modal("show");
+				}
 			}
 			else
 			{
-				$scope.errorMsg="Somthing Error while Data Insering !";
-				$("#errorModal").modal("show");
+					if(res.data.ops.length>0)
+					{
+						$scope.allData.push(res.data.ops[0]);
+					}
+					else
+					{
+						$scope.errorMsg="Somthing Error while Data Insering !";
+						$("#errorModal").modal("show");
+					}
+				
 			}
 		});
 	};
@@ -57,5 +88,9 @@ app.controller('studentCtrl', function($scope, $http){
 				$("#errorModal").modal("show");
 			}
 		});
+	}
+	$scope.askEdit=function(obj){
+		// $scope.newStudent=obj;
+		angular.copy(obj, $scope.newStudent);
 	}
 });
