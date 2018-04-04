@@ -1,8 +1,43 @@
 var app = angular.module('studentApp', []);
+app.directive('uploadDir', function($parse){
+	return {
+		restrict : 'A',
+		link : function(scope, element, attrs){
+			element.bind('change', function(){
+				scope.$apply(function(){
+					console.log("----------",element[0].files);
+				  $parse(attrs.uploadDir).assign(scope, element[0].files);
+				});
+			});
+		}
+	}
+}); // upload-dir
+
+
+
 app.controller('studentCtrl', function($scope, $http){
+	
 	$scope.allData = [];
 	$scope.newStudent = {};
 	$scope.errorMsg = "";
+
+	$scope.upload = function(){
+            // console.log($scope.fileModel);
+            $scope.newStudent={ full_name : 'rohit', age : 25, fee : 2500};
+           var form = new FormData();
+           form.append('image', $scope.fileModel[0]);
+			form.append('data', JSON.stringify($scope.newStudent));          
+           // console.log(form);
+           //form.push($scope.new);
+           $http({
+           		url : "/upload/",
+           		method :"post",
+           		data : form,
+           		headers: {'Content-Type': undefined,'Process-Data': false}
+           }).then(function(res){
+           		console.log(res);
+           });
+   };
 
 	$scope.getAll=function(){
 		$http({
@@ -17,6 +52,7 @@ app.controller('studentCtrl', function($scope, $http){
 
 
 	$scope.add = function(){
+		
 		//console.log($scope.newStudent);
 		if($scope.newStudent._id)
 		{
@@ -94,3 +130,9 @@ app.controller('studentCtrl', function($scope, $http){
 		angular.copy(obj, $scope.newStudent);
 	}
 });
+
+
+
+
+
+

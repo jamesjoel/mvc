@@ -7,6 +7,9 @@
 		<h1>The Stepping Ston</h1>
 		<button class="btn btn-info" ng-click="newStudent={}" data-toggle="modal" data-target="#addModal">Add Student</button>
 	</div>
+	<pre ng-bind="fileModel | json"></pre>
+	<input type="file" upload-dir="fileModel" />
+	<button class="btn btn-info" ng-click="upload()">Upload</button>
 	<table class="table table-hover table-striped table-bordered">
 		<tr>
 			<th>#</th>
@@ -32,6 +35,9 @@
 	</table>
 	
 </div>
+
+
+
 <div class="modal fade" id="addModal">
 	<div class="modal-dialog">
 		<div class="modal-content">

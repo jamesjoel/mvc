@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 
-// var backdoor_url = ['/dash'];
-var backdoor_url = ['/dash', '/student'];
+var backdoor_url = ['/dash'];
+// var backdoor_url = ['/dash', '/student'];
 
 
 
@@ -20,6 +20,7 @@ router.use('/login', require("./login"));
 router.use('/signup', require("./signup"));
 router.use('/user', require("./user"));
 router.use('/student', require("./student"));
+router.use('/upload', require("./upload"));
 
 
 router.use('/dash', require("./dash"));
