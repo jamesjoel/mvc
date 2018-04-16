@@ -21,6 +21,7 @@ router.use('/signup', require("./signup"));
 router.use('/user', require("./user"));
 router.use('/student', require("./student"));
 router.use('/upload', require("./upload"));
+router.use('/teacher', require("./teacher"));
 
 
 router.use('/dash', require("./dash"));
